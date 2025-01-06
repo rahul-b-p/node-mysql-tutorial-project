@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectMySql = void 0;
+exports.synchronizeDB = exports.connectMySql = void 0;
 const config_1 = require("../config");
 const logger_1 = require("../utils/logger");
 const connectMySql = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -22,3 +22,13 @@ const connectMySql = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.connectMySql = connectMySql;
+const synchronizeDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield config_1.sequelize.sync({ alter: true });
+        logger_1.logger.info("Database synchronized.");
+    }
+    catch (error) {
+        logger_1.logger.error("Database synchronization failed:", error);
+    }
+});
+exports.synchronizeDB = synchronizeDB;

@@ -1,8 +1,9 @@
 import { config } from 'dotenv';
 import express from 'express';
 import morgan_logger from 'morgan';
-import { connectMySql } from './connections';
+import { connectMySql, synchronizeDB } from './connections';
 import { logger } from './utils/logger';
+import { userRouter } from './routers';
 
 
 config();
@@ -10,11 +11,16 @@ config();
 const app = express();
 
 connectMySql();
+synchronizeDB();
 
 app.use(morgan_logger('dev'));
 
-const port = process.env.PORT || 5000;
+app.use(express.json());
 
-app.listen(port,()=>{
+app.use('/user', userRouter);
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
     logger.info(`App Running successfully at http://localhost:${port}`);
 })

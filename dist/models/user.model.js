@@ -16,7 +16,8 @@ User.init({
     },
     email: {
         type: sequelize_1.DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     password: {
         type: sequelize_1.DataTypes.STRING,
@@ -25,6 +26,9 @@ User.init({
 }, {
     sequelize: config_1.sequelize,
     tableName: "Users",
-    timestamps: true
+    timestamps: true,
+    defaultScope: {
+        attributes: { exclude: ['password'] }
+    }
 });
 exports.default = User;

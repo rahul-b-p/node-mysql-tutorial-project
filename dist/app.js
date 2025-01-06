@@ -16,7 +16,7 @@ const app = (0, express_1.default)();
 app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.json());
 app.use('/user', routers_1.userRouter);
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
     logger_1.logger.info(`App Running successfully at http://localhost:${port}`);
 });
